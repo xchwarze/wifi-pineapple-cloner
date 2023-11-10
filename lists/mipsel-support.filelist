@@ -1,0 +1,52 @@
+# This file is generated manually by comparing the filesystems!
+# Besides comparing them you have to understand why each thing is installed!
+
+# usr
+/usr/sbin/http_sniffer
+
+
+
+# Packages
+
+# aircrack-ng-hak5
+# libc, libpcap1, libpcre, libpthread, uclibcxx, libopenssl1.1, libnl-core200, libnl-genl200, zlib
+/usr/lib/libaircrack-osdep-1.5.2.so
+/usr/lib/libaircrack-ce-wpa-1.5.2.so
+/usr/lib/libaircrack-osdep.so
+/usr/lib/libaircrack-ce-wpa.la
+/usr/lib/libaircrack-ce-wpa.so
+/usr/lib/libaircrack-osdep.la
+/usr/bin/aircrack-ng
+/usr/sbin/airmon-ng
+/usr/sbin/airodump-ng-oui-update
+/usr/sbin/aireplay-ng
+/usr/sbin/airodump-ng
+
+# cc-client
+# libc, libpthread, libstdcpp6, libcurl4, libopenssl1.1, libsqlite3-0, protobuf-lite
+#/usr/lib/libprotobuf-lite.so
+#/usr/lib/libprotobuf-lite.so.15
+#/usr/lib/libprotobuf-lite.so.15.0.1
+#/usr/sbin/C2DISCONNECT
+#/usr/sbin/C2CONNECT
+#/usr/sbin/C2EXFIL
+#/etc/init.d/cc-client
+#/usr/sbin/cc-client
+
+# pineap
+# libc, libpthread, libstdcpp6, libpcap1, libsqlite3-0, libwifi
+/etc/init.d/pineapd
+/usr/bin/pineap
+/usr/lib/libwifi.so
+/usr/sbin/pineapd
+
+# resetssids
+# libc, libsqlite3-0
+/usr/sbin/resetssids
+/etc/init.d/resetssids
+
+# karma
+/lib/netifd/wireless/mac80211.sh
+/lib/netifd/hostapd.sh
+/usr/sbin/hostapd_cli
+/usr/sbin/wpad
