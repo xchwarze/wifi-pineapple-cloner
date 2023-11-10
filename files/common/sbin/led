@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# Usage: led <color|reset> [on|off]
+
+usage() {
+    echo "Usage: led <color|reset> [on|off]"
+    echo " "
+    echo "Available colors are: BLUE"
+    exit 1
+}
+
+resetLEDs() {
+    /etc/init.d/led restart
+}
+
+setLED() {
+    led=$1
+    state=$2
+    case "$led" in
+        blue|BLUE|all|ALL)
+            echo "$state" > /sys/class/leds/wifi-pineapple-nano:blue:system/brightness
+            ;;
+        *)
+            usage
+            ;;
+    esac
+}
+
+color=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+mode=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+
+case "$color" in
+    reset)
+        resetLEDs
+        ;;
+    blue|all)
+        case "$mode" in
+            on)
+                setLED $color 255
+                ;;
+            off)
+                setLED $color 0
+                ;;
+            *)
+                usage
+                ;;
+        esac
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+echo "Done."

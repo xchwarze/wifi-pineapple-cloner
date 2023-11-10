@@ -1,0 +1,64 @@
+#!/bin/bash
+# this script fix the nano mechanism of usb\30-sd -> block\20-sd - by DSR!
+
+device=`basename $DEVPATH`
+devNum=$(echo $device | awk -F "" '{print $4}')
+
+[[ $ACTION == "add" ]] && {
+    mkdir -p /dev/sdcard
+    mkdir -p /sd
+
+    [[ $devNum == "" ]] && {
+        rm -rf /dev/sdcard/sd
+        ln -s /dev/$device /dev/sdcard/sd
+    } || {
+        rm -rf /dev/sdcard/sd$devNum
+        ln -s /dev/$device /dev/sdcard/sd$devNum
+
+        [[ $devNum == "1" ]] && {
+            logger "== Add pendrive as SD"
+            umount /sd
+            mount /dev/sdcard/sd$devNum /sd && {
+                [[ -e "/sd/etc" ]] || {
+                    sleep 5
+                    ln -s /etc/ /sd/etc
+                }
+            }
+
+            if [[ -e "/sd/modules/" ]]; then
+                logger "== Link modules in /sd/modules/"
+                for module in `ls /sd/modules/`; do
+                    if [[ ! -d "/pineapple/modules/$module" ]]; then
+                        ln -s /sd/modules/$module /pineapple/modules/$module
+                    fi
+                done
+            fi
+
+            # autoinstall python in universal flavor
+            if [[ ! -d "/usr/lib/python2.7" && ! -d "/sd/usr/lib/python2.7" ]]; then
+                /usr/bin/wpc-tools missing_packages
+            fi
+        }
+
+        [[ $devNum == "2" ]] && {
+            logger "== Add swap"
+            swapoff /dev/sdcard/sd$devNum
+            swapon /dev/sdcard/sd$devNum
+        }
+    }
+}
+
+[[ $ACTION == "remove" ]] && {
+    [[ $devNum == "" ]] && {
+        umount /sd
+        rm -rf /dev/sdcard/sd
+    }
+
+    [[ $devNum == "1" ]] && {
+        rm -rf /dev/sdcard/sd$devNum
+    }
+
+    [[ $devNum == "2" ]] && {
+        swapoff /dev/sdcard/sd$devNum
+    }
+}

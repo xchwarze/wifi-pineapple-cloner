@@ -1,0 +1,12 @@
+#!/bin/bash
+
+[[ $ACTION == "remove" ]] && exit
+[[ $DEVTYPE == "usb_interface" ]] || exit
+
+wifi config >> /etc/config/wireless
+WIFIDEV=$(uci show wireless | grep "${DEVPATH:9}" | awk -F'.' '{print $2}')
+
+[[ ! -z $WIFIDEV ]] && {
+    wifi reload $WIFIDEV
+    wifi up $WIFIDEV
+}

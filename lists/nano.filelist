@@ -1,0 +1,118 @@
+# bin
+/bin/bash
+/bin/busybox
+
+
+
+# etc
+/etc/config/autossh
+
+/etc/hotplug.d/block/20-sd
+/etc/hotplug.d/iface/20-autossh
+/etc/hotplug.d/iface/30-usb
+/etc/hotplug.d/usb/30-fix_wifi
+/etc/hotplug.d/usb/30-sd
+
+/etc/init.d/atd
+/etc/init.d/autossh
+/etc/init.d/dnsmasq
+/etc/init.d/php7-fpm
+/etc/init.d/pineapd
+/etc/init.d/pineapple
+/etc/init.d/resetssids
+
+/etc/nginx/nginx.conf
+/etc/opkg/customfeeds.conf
+/etc/php7-fpm.d/www.conf
+/etc/pineape
+/etc/pineapple
+
+/etc/rc.button/BTN_1
+/etc/rc.button/reset
+
+/etc/ssh/sshd_config
+/etc/ssl/openssl.cnf
+
+/etc/uci-defaults/90-firewall.sh
+/etc/uci-defaults/91-fstab.sh
+/etc/uci-defaults/92-system.sh
+/etc/uci-defaults/93-pineap.sh
+/etc/uci-defaults/94-reporting.sh
+/etc/uci-defaults/95-network.sh
+/etc/uci-defaults/96-landingpage.sh
+/etc/uci-defaults/97-pineapple.sh
+
+/etc/banner
+/etc/inittab
+/etc/opkg.conf
+/etc/php.ini
+/etc/php7-fpm.conf
+/etc/rc.local
+/etc/shadow
+
+
+
+# lib
+/lib/preinit/30_failsafe_wait
+/lib/preinit/40_run_failsafe_hook
+/lib/upgrade/keep.d/busybox
+/lib/wifi/mac80211.sh
+
+
+
+# pineapple
+/pineapple
+
+
+
+# sbin
+/sbin/fdisk
+/sbin/led
+
+
+
+# usr
+/usr/bin/pineapple
+/usr/bin/pineap
+/usr/bin/uuencode
+
+#/usr/lib/python2.7/encodings
+/usr/lib/libwifi.so
+
+/usr/sbin/http_sniffer
+/usr/sbin/pineapd
+/usr/sbin/resetssids
+
+
+
+# www
+/www
+
+
+
+# Packages
+
+# cc-client
+# libc, libpthread, libstdcpp6, libcurl4, libopenssl1.1, libsqlite3-0, protobuf-lite
+#/usr/lib/libprotobuf-lite.so
+#/usr/lib/libprotobuf-lite.so.15
+#/usr/lib/libprotobuf-lite.so.15.0.1
+#/usr/sbin/C2DISCONNECT
+#/usr/sbin/C2CONNECT
+#/usr/sbin/C2EXFIL
+#/etc/init.d/cc-client
+#/usr/sbin/cc-client
+
+# aircrack-ng-hak5
+# libc, libpcap1, libpcre, libpthread, uclibcxx, libopenssl1.1, libnl-core200, libnl-genl200, zlib
+/usr/lib/libaircrack-osdep-1.5.2.so
+/usr/lib/libaircrack-ce-wpa-1.5.2.so
+/usr/lib/libaircrack-osdep.so
+/usr/lib/libaircrack-ce-wpa.la
+/usr/lib/libaircrack-ce-wpa.so
+/usr/lib/libaircrack-osdep.la
+/usr/bin/aircrack-ng
+/usr/sbin/airmon-ng
+/usr/sbin/airodump-ng-oui-update
+/usr/sbin/aireplay-ng
+/usr/sbin/airodump-ng

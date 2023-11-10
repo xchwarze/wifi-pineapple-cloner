@@ -1,0 +1,190 @@
+#!/bin/sh
+# Copyright (C) 2023 DSR!
+
+COMMANDS="format_sd correct_sd_mount missing_packages theme_install set_panel_port set_router_ip set_pineap_interface handle_lost_phys"
+HELP="
+Available commands:
+    format_sd            Format SD/pendrive for use with Pineapple
+    correct_sd_mount     Fix ghost SD/pendrive issues
+    missing_packages     Install the missing OpenWRT packages
+    theme_install        Deploys the tool to change panel theme
+    set_panel_port       Change the port used by panel
+    set_router_ip        Change the IP used by the hardware
+    set_pineap_interface Change the interface used by PineAP 
+    handle_lost_phys     Fix unrecognized wifi interfaces
+"
+PACKAGES="python-logging python-openssl python-sqlite3 python-codecs"
+
+to_logger() {
+    logger -s -t wpc "$1"
+}
+
+format_sd() {
+    to_logger "[+] Formatting SD using the panel script..."
+    /pineapple/modules/Advanced/formatSD/format_sd
+    to_logger "Process finished. Read the log to see if it was completed correctly."
+    to_logger "The partition may take a few seconds to become available."
+}
+
+correct_sd_mount() {
+    SD_STATUS=$(/bin/mount | /bin/grep "on /sd" -c)
+    SD_COUNT=$(ls /sd | wc -l)
+    if [[ -d /sd && $SD_STATUS == "0" && $SD_COUNT == "0" ]]; then
+        to_logger "[+] Fix sd status"
+        rm -rf /sd
+    fi
+}
+
+missing_packages() {
+    if [[ ! -d "/usr/lib/python2.7" && ! -d "/sd/usr/lib/python2.7" ]]; then
+        FREE_SPACE=$(df / | tail -1 | awk '{print $4}')
+
+        if [[ ! -d /sd && $FREE_SPACE -lt 10240 ]]; then
+            to_logger "[!] There is not enough space to install the packages"
+        elif ping -q -c 1 -W 1 1.1.1.1 >/dev/null; then
+            to_logger "[+] Installing missing packages..."
+            INSTALL_ROUTE="--dest sd"
+            if [[ $FREE_SPACE -gt 10240 ]]; then
+                INSTALL_ROUTE=""
+                to_logger "[*] Found available space in the system partition"
+            fi
+
+            opkg update && opkg $INSTALL_ROUTE install $PACKAGES && python -m compileall
+            if [[ ! -d "/usr/lib/python2.7" && ! -d "/sd/usr/lib/python2.7" ]]; then
+                to_logger "[!] Packages were not installed!"
+            else
+                to_logger "[*] Install Complete!"
+            fi
+        else
+            to_logger "[!] Connect to the internet and run \"wpc-tools missing_packages\" command!"
+        fi
+    fi
+}
+
+theme_install() {
+    to_logger "[+] Downloading theme manager..."
+    wget -q "https://raw.githubusercontent.com/xchwarze/wifi-pineapple-community/main/themes/install.sh" -O /tmp/theme-install.sh
+    chmod +x /tmp/theme-install.sh
+    to_logger "[*] By running /tmp/theme-install.sh you will be able to see the available themes and choose the one you want"
+    /tmp/theme-install.sh "$1"
+}
+
+set_panel_port() {
+    new_port="$1"
+    config_file="/etc/nginx/nginx.conf"
+    if [ -z "$new_port" ] || ! echo "$new_port" | grep -qE '^[1-9][0-9]{0,4}$' || [ "$new_port" -gt 65535 ]; then
+        to_logger "[!] Error: You must provide a valid TCP port (1-65535) as a parameter"
+        exit 1
+    fi
+
+    old_port=$(awk '/listen/ {++counter; if(counter==2) print NR}' "$config_file")
+    sed -i "${old_port}s/[0-9]\+/$new_port/" "$config_file"
+    /etc/init.d/nginx restart
+
+    uci set firewall.allowui.dest_port="$new_port"
+    uci commit firewall
+    /etc/init.d/firewall restart
+    
+    to_logger "[+] The port has been changed to: $new_port"
+}
+
+set_router_ip() {
+    new_ip="$1"
+    if [ -z "$new_ip" ] || ! echo "$new_ip" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'; then
+        to_logger "[!] Error: You must provide a valid IP address as a parameter"
+        exit 1
+    fi
+
+    gateway_ip="${new_ip%.*}.42"
+    uci set network.lan.ipaddr="$gateway_ip"
+    uci set network.lan.gateway="$new_ip"
+    uci commit network
+
+    to_logger "[+] The LAN IP address has been updated to: $new_ip"
+    /etc/init.d/network restart
+}
+
+set_pineap_interface() {
+    new_iface=$(echo $1 | sed 's/mon//')
+    iface=$(uci get pineap.@config[0].pineap_interface | sed 's/mon//')
+    if [[ "$new_iface" == "" ]]; then  
+        to_logger "[!] Error: You must select a new interface to assign to"
+        exit 1
+    fi
+
+    to_logger "[+] Current interface : ${iface}"
+    to_logger "[+] New interface     : ${new_iface}"
+
+    airmon-ng stop "${iface}mon" &>/dev/null 
+    airmon-ng stop "${new_iface}mon" &>/dev/null 
+
+    uci set pineap.@config[0].pineap_interface="${new_iface}mon"
+    uci commit pineap           
+
+    /etc/init.d/pineapd restart
+}
+
+# based on airmon-ng code
+handle_lost_phys() {
+    to_logger "[+] Looking for unrecognized wifi interfaces..."
+    if [ -d /sys/class/ieee80211 ]; then
+        for i in $(ls /sys/class/ieee80211/); do
+            if [ ! -d /sys/class/ieee80211/${i}/device/net ]; then
+                to_logger "[*] Found ${i} with no interface assigned!"
+                find_free_interface ${i}
+            fi
+        done
+    fi
+    to_logger "[*] Check completed"
+}
+
+find_free_interface() {
+    PHYDEV="${1}"
+    target_mode="station"
+    target_type="1"
+
+    for i in $(seq 0 100); do
+        if [ "$i" = "100" ]; then
+            to_logger "[!] Unable to find a free name between wlan0 and wlan99"
+            return 1
+        fi
+
+        if [ ! -e /sys/class/net/wlan${i} ] && [ ! -e /sys/class/net/wlan${i}mon ]; then
+            to_logger "[*] Candidate wlan${i} and wlan${i}mon are both clear, creating wlan${i}"
+
+            IW_ERROR="$(iw phy ${PHYDEV} interface add wlan${i} type ${target_mode} 2>&1)"
+            if [ -z "${IW_ERROR}" ]; then
+                if [ -d /sys/class/ieee80211/${PHYDEV}/device/net ]; then
+                    for j in $(ls /sys/class/ieee80211/${PHYDEV}/device/net/); do
+                        if [ "$(cat /sys/class/ieee80211/${PHYDEV}/device/net/${j}/type)" = "${target_type}" ]; then
+                            k=${j#wlan}
+                            i=${k%mon}
+                        fi
+                    done
+                else
+                    to_logger "[!] Unable to create wlan${i} and no error received"
+                    return 1
+                fi
+
+                to_logger "[!] mac80211 ${target_mode} mode vif enabled on [${PHYDEV}]wlan${i}"
+                unset IW_ERROR
+                break
+            else
+                to_logger "[!] Error: Adding ${target_mode} mode interface: ${IW_ERROR}"
+                break
+            fi
+        fi
+    done
+}
+
+# handle commands
+if [[ $# -gt 0 ]]; then
+    if echo "${COMMANDS}" | grep -wq "$1"; then
+        $1 "$2"
+    else
+        to_logger "Unknown command: $1"
+        echo "${HELP}"
+    fi
+else
+    echo "${HELP}"
+fi

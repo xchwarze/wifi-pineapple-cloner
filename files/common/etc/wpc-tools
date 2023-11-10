@@ -1,0 +1,14 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2022 DSR!
+
+START=99
+
+start() {
+    wpc-tools correct_sd_mount
+    wpc-tools missing_packages
+    wpc-tools handle_lost_phys
+}
+
+boot() {
+    start
+}
