@@ -164,10 +164,11 @@ common_patch () {
 
         xxd "$ROOT_FS/usr/sbin/pineapd" "$ROOT_FS/usr/sbin/pineapd.hex"
         rm "$ROOT_FS/usr/bin/pineap"
-        sed -i 's/6361 7420 2f70 726f 632f 636d 646c 696e/6563 686f 2027 5049 4e45 4150 504c 452d/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/6520 7c20 6177 6b20 277b 2073 706c 6974/5445 5452 4127 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/2824 312c 782c 223d 2229 3b20 7072 696e/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/7420 785b 325d 207d 2700 0000 5749 4649/2020 2020 2020 2020 2000 0000 5749 4649/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/7065 6e64 0000 0000 6361 7420 2f70 726f/7065 6e64 0000 0000 6563 686f 2027 5049/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/632f 636d 646c 696e 6520 7c20 6177 6b20/4e45 4150 504c 452d 5445 5452 4127 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/277b 2073 706c 6974 2824 312c 782c 223d/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2229 3b20 7072 696e 7420 785b 325d 207d/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2700 0000 646d 6573 6720 7c20 6865 6164/2000 0000 646d 6573 6720 7c20 6865 6164/' "$ROOT_FS/usr/sbin/pineapd.hex"
         xxd -r "$ROOT_FS/usr/sbin/pineapd.hex" "$ROOT_FS/usr/sbin/pineapd"
         rm "$ROOT_FS/usr/sbin/pineapd.hex"
     fi
