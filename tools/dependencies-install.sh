@@ -22,7 +22,10 @@ install_openwrt_deps () {
         if [ ! -f "$FILE" ]; then
             echo "    [+] Downloading imagebuilder..."
             TYPE=$(echo $TARGET | sed "s/-/\//g")
-            wget -q "$OPENWRT_BASE_URL/$TYPE/$ORIGINAL_FOLDER_NAME.tar.xz" -O "$FILE"
+            URL="$OPENWRT_BASE_URL/$TYPE/$ORIGINAL_FOLDER_NAME.tar.xz"
+
+            echo "        $URL"
+            wget -q "$URL" -O "$FILE"
         fi
 
         # install...
@@ -30,6 +33,7 @@ install_openwrt_deps () {
         rm -rf "$FOLDER_NAME"
         tar xJf "$FILE"
         mv "$ORIGINAL_FOLDER_NAME" "$FOLDER_NAME"
+        rm xJf "$FILE"
 
         # correct opkg feeds
         echo "    [+] Correct opkg feeds"
