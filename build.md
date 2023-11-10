@@ -1,6 +1,7 @@
 ## Automatic Build steps
 
-All these steps are automated in `dependencies-install.sh` and `builder.sh`
+All these steps are automated in `dependencies-install.sh` and `builder.sh`.
+Depending on what you decide to build the scrript will guide the user on what files the user should add.
 ```bash
 chmod +x tools/*.sh
 tools/dependencies-install.sh openwrt-deps-mips

@@ -9,13 +9,6 @@ Sometime between 2019 and 2020 we started using the private beta of this project
 So at the time of redoing this project I decided to rescue the original name from forgotten 🤣
 
 
-## Attention!
-
-The original repo was deleted by DMCA so I am rewriting the project so I don't have to distribute third party code.
-
-So at the moment you can NOT generate a usable build.
-
-
 ## About this project
 
 This project is the result of everything I've experienced from 2018 to 2022 to successfully clone the NANO and TETRA in any hardware.<br>
@@ -51,7 +44,7 @@ Also I made a second repo for [downloads](https://github.com/xchwarze/wifi-pinea
 
 All the firmwares found on the internet have been created using the [securityaddicted method](https://www.securityaddicted.com/2016/11/17/weaponizing-gl-inet-gl-ar150/), which involves duplicating the entire original file system. However, this approach consumes excessive space and often leads to instability. As a result, I have developed a new and improved method.
 
-I introduced this new method method during my presentations at EkoParty 2020 and DragonJar 2021. You can access the materials from those [presentations here](https://github.com/indetectables-net/embedded).
+I introduced this new method during my presentations about hardware porting at EkoParty 2020 and DragonJar 2021. You can access the materials from those [presentations here](https://github.com/indetectables-net/embedded).
 
 In 2021, an [idiot named Samy Younsi](https://github.com/xchwarze/wifi-pineapple-cloner/issues/26), shamelessly plagiarized the method I had developed and presented at conferences. Months later, he adapted it to Python using the Wifi Pineapple Cloner v1 version and continued spreading it as his own creation.
 
