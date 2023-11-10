@@ -4,12 +4,16 @@
 FILE_LIST="$1"
 FROM_FOLDER="$2"
 TO_FOLDER="$3"
+DISABLE_CLEAN="$4"
+
 COUNTER=0
+
 if [[ ! -f "$FILE_LIST" || ! -d "$FROM_FOLDER" || "$TO_FOLDER" == "" ]]; then
-    echo "Run with \"copier.sh [FILE_LIST] [FROM_FOLDER] [TO_FOLDER]\""
-    echo "    FILE_LIST   -> flavor file list"
-    echo "    FROM_FOLDER -> path to base fs"
-    echo "    TO_FOLDER   -> path to new fs"
+    echo "Run with \"copier.sh [FILE_LIST] [FROM_FOLDER] [TO_FOLDER] [DISABLE_CLEAN]\""
+    echo "    FILE_LIST     -> flavor file list"
+    echo "    FROM_FOLDER   -> path to base fs"
+    echo "    TO_FOLDER     -> path to new fs"
+    echo "    DISABLE_CLEAN -> disable clean of new fs folder"
 
     exit 1
 fi
@@ -25,7 +29,10 @@ echo "******************************"
 echo ""
 
 echo "[*] Start copy loop"
-rm -rf "$TO_FOLDER"
+
+if [ -n "$DISABLE_CLEAN" ]; then
+    rm -rf "$TO_FOLDER"
+fi
 mkdir "$TO_FOLDER"
 
 for FILE in $(cat "$FILE_LIST")

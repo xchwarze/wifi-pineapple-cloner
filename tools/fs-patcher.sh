@@ -54,31 +54,6 @@ common_patch () {
     cp "$FILES_FOLDER/$ARCHITECTURE/customfeeds.conf" "$ROOT_FS/etc/opkg/customfeeds.conf"
 
 
-    echo "[*] Pineap"
-
-    cp "$FILES_FOLDER/$ARCHITECTURE/pineap/pineapd" "$ROOT_FS/usr/sbin/pineapd"
-    cp "$FILES_FOLDER/$ARCHITECTURE/pineap/pineap" "$ROOT_FS/usr/bin/pineap"
-    cp "$FILES_FOLDER/$ARCHITECTURE/pineap/resetssids" "$ROOT_FS/usr/sbin/resetssids"
-    cp "$FILES_FOLDER/$ARCHITECTURE/pineap/libwifi.so" "$ROOT_FS/usr/lib/libwifi.so"
-    chmod +x "$ROOT_FS/usr/sbin/pineapd"
-    chmod +x "$ROOT_FS/usr/bin/pineap"
-    chmod +x "$ROOT_FS/usr/sbin/resetssids"
-    chmod +x "$ROOT_FS/usr/lib/libwifi.so"
-
-
-    echo "[*] Add Karma support"
-
-    mkdir -p "$ROOT_FS/lib/netifd/wireless"
-    cp "$FILES_FOLDER/common/karma/mac80211.sh" "$ROOT_FS/lib/netifd/wireless/mac80211.sh"
-    cp "$FILES_FOLDER/common/karma/hostapd.sh" "$ROOT_FS/lib/netifd/hostapd.sh"
-    cp "$FILES_FOLDER/$ARCHITECTURE/karma/hostapd_cli" "$ROOT_FS/usr/sbin/hostapd_cli"
-    cp "$FILES_FOLDER/$ARCHITECTURE/karma/wpad" "$ROOT_FS/usr/sbin/wpad"
-    chmod +x "$ROOT_FS/lib/netifd/wireless/mac80211.sh"
-    chmod +x "$ROOT_FS/lib/netifd/hostapd.sh"
-    chmod +x "$ROOT_FS/usr/sbin/hostapd_cli"
-    chmod +x "$ROOT_FS/usr/sbin/wpad"
-
-
     echo "[*] Install panel fixes and improvements"
 
     # update panel code
@@ -179,29 +154,21 @@ common_patch () {
 mipsel_patch () {
     echo "[*] Add mipsel support"
     
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/aircrack-ng" "$ROOT_FS/usr/bin/aircrack-ng"
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/aireplay-ng" "$ROOT_FS/usr/sbin/aireplay-ng"
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/airodump-ng" "$ROOT_FS/usr/sbin/airodump-ng"
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/airodump-ng-oui-update" "$ROOT_FS/usr/sbin/airodump-ng-oui-update"
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/libaircrack-osdep-1.5.2.so" "$ROOT_FS/usr/lib/libaircrack-osdep-1.5.2.so"
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/libaircrack-ce-wpa-1.5.2.so" "$ROOT_FS/usr/lib/libaircrack-ce-wpa-1.5.2.so"
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/libaircrack-osdep.so" "$ROOT_FS/usr/lib/libaircrack-osdep.so"
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/libaircrack-ce-wpa.la" "$ROOT_FS/usr/lib/libaircrack-ce-wpa.la"
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/libaircrack-ce-wpa.so" "$ROOT_FS/usr/lib/libaircrack-ce-wpa.so"
-    cp "$FILES_FOLDER/$ARCHITECTURE/aircrack/libaircrack-osdep.la" "$ROOT_FS/usr/lib/libaircrack-osdep.la"
-    chmod +x "$ROOT_FS/usr/bin/aircrack-ng"
-    chmod +x "$ROOT_FS/usr/sbin/aireplay-ng"
-    chmod +x "$ROOT_FS/usr/sbin/airodump-ng"
-    chmod +x "$ROOT_FS/usr/sbin/airodump-ng-oui-update"
-    chmod +x "$ROOT_FS/usr/lib/libaircrack-osdep-1.5.2.so"
-    chmod +x "$ROOT_FS/usr/lib/libaircrack-ce-wpa-1.5.2.so"
-    chmod +x "$ROOT_FS/usr/lib/libaircrack-osdep.so"
-    chmod +x "$ROOT_FS/usr/lib/libaircrack-ce-wpa.la"
-    chmod +x "$ROOT_FS/usr/lib/libaircrack-ce-wpa.so"
-    chmod +x "$ROOT_FS/usr/lib/libaircrack-osdep.la"
+    if [ -f "$ROOT_FS/usr/sbin/sniffer" ]; then
+        mv "$ROOT_FS/usr/sbin/sniffer" "$ROOT_FS/usr/sbin/http_sniffer"
+        chmod +x "$ROOT_FS/usr/sbin/http_sniffer"
+    else
+        echo "[!] Attention!"
+        echo ""
+        echo "File '/usr/sbin/sniffer' was not found."
+        echo "If you want to generate a mipsel-compatible build you must first perform the following steps:"
+        echo "  1. Download the firmware v1.1.1 of the Mark VII"
+        echo "  2. Execute the mass copy script with the mipsel-support.filelist list"
+        echo "     tools/copier.sh lists/mipsel-support.filelist rootfs-mk7 rootfs true"
+        echo ""
 
-    cp "$FILES_FOLDER/$ARCHITECTURE/others/http_sniffer" "$ROOT_FS/usr/sbin/http_sniffer"
-    chmod +x "$ROOT_FS/usr/sbin/http_sniffer"
+        exit 1
+    fi
 }
 
 nano_patch () {

@@ -2,7 +2,7 @@
 # Besides comparing them you have to understand why each thing is installed!
 
 # usr
-/usr/sbin/http_sniffer
+/usr/sbin/sniffer
 
 
 
