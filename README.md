@@ -9,6 +9,13 @@ Sometime between 2019 and 2020 we started using the private beta of this project
 So at the time of redoing this project I decided to rescue the original name from forgotten 🤣
 
 
+## Attention!
+
+The original repo was deleted by DMCA so I am rewriting the project so I don't have to distribute third party code.
+
+So at the moment you can NOT generate a usable build.
+
+
 ## About this project
 
 This project is the result of everything I've experienced from 2018 to 2022 to successfully clone the NANO and TETRA in any hardware.<br>

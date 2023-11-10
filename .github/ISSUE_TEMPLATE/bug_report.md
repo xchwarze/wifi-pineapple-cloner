@@ -13,7 +13,7 @@ assignees: ''
   - Your hardware is not good enough and you are trying to do things it can't do.
 
 - Make sure to follow the installation steps and recommendations:
-  - [Installation steps](https://github.com/xchwarze/wifi-pineapple-cloner/#install-steps)
+  - [Installation steps](https://github.com/xchwarze/wifi-pineapple-cloner-v4/#install-steps)
   - [Recommendations](https://github.com/xchwarze/wifi-pineapple-cloner-builds#supported-devices)
   - [Recomended Setup](https://github.com/xchwarze/wifi-pineapple-cloner-builds#recomended-setup)
 
