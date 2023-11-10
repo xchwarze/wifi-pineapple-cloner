@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ❓ Question
+    url: https://github.com/xchwarze/wifi-pineapple-cloner/discussions/categories/q-a
+    about: Please use ask and answer section. Use this link to enter.
+  - name: ★ Problem with a module
+    url: https://github.com/xchwarze/wifi-pineapple-community/issues
+    about: Modules are tracked in a separate repo
+  - name: ✦ Problem with panel
+    url: https://github.com/xchwarze/wifi-pineapple-panel/issues
+    about: Panel are tracked in a separate repo
