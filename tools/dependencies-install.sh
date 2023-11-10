@@ -33,7 +33,7 @@ install_openwrt_deps () {
         rm -rf "$FOLDER_NAME"
         tar xJf "$FILE"
         mv "$ORIGINAL_FOLDER_NAME" "$FOLDER_NAME"
-        rm xJf "$FILE"
+        rm "$FILE"
 
         # correct opkg feeds
         echo "    [+] Correct opkg feeds"

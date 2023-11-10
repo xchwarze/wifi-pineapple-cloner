@@ -24,16 +24,22 @@ FILE_LIST="$(realpath $FILE_LIST)"
 FROM_FOLDER="$(realpath $FROM_FOLDER)"
 TO_FOLDER="$(realpath $TO_FOLDER)"
 
-echo "Filelist2Copy - by DSR!"
+echo " Filelist2Copy - by DSR!"
 echo "******************************"
 echo ""
 
-echo "[*] Start copy loop"
+echo "  [*] Start copy loop"
 
-if [ -n "$DISABLE_CLEAN" ]; then
+if [ -z "$DISABLE_CLEAN" ]; then
+    echo "  [*] Clean 'new fs' folder"
     rm -rf "$TO_FOLDER"
 fi
-mkdir "$TO_FOLDER"
+
+if [ ! -d "$TO_FOLDER" ]; then
+    echo "  [*] Create 'new fs' folder"
+    mkdir "$TO_FOLDER"
+fi
+
 
 for FILE in $(cat "$FILE_LIST")
 do
@@ -46,7 +52,7 @@ do
 
     # check exist
     if [[ ! -f "$FROM_FOLDER$FILE" ]] && [[ ! -d "$FROM_FOLDER$FILE" ]]; then
-        echo "[!] File does not exist: ${FROM_FOLDER}${FILE}"
+        echo "  [!] File does not exist: ${FROM_FOLDER}${FILE}"
         continue
     fi
 
@@ -71,9 +77,9 @@ do
 done
 
 if [ $COUNTER -eq 0 ]; then
-    echo "[!] No files were copied. Verify that the paths are correct."
+    echo "  [!] No files were copied. Verify that the paths are correct."
     exit 1
 fi
 
-echo "[+] Files copied: $COUNTER"
+echo "  [+] Files copied: $COUNTER"
 echo ""

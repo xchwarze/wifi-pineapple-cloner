@@ -42,13 +42,14 @@ FW_FOLDER="$(realpath $(dirname $0)/../build/fw-base)"
 check_deps () {
     echo "[*] Checking dependencies"
     echo "******************************"
-    echo ""
 
     if [ ! -f "$FW_FOLDER/basefw.bin" ]; then
+        VARIANT=$([[ "$FLAVOR" == "nano" ]] && echo "NANO" || echo "TETRA")
+
         echo "[!] Attention!"
         echo ""
         echo "File 'build/fw-base/basefw.bin' was not found."
-        echo "You must download the original firmware version 2.7.0 and place it with the name basefw.bin in this path:"
+        echo "You must download the original $VARIANT firmware version 2.7.0 and place it with the name basefw.bin in this path:"
         echo "$FW_FOLDER"
         echo ""
 
@@ -65,12 +66,14 @@ check_deps () {
 
         exit 1
     fi
+
+    echo "  [+] Check completed"
+    echo ""
 }
 
 prepare_builder () {
     echo "[*] Prepare builder"
     echo "******************************"
-    echo ""
 
     PACKAGES_ARQ="${ARCHITECTURE}_24kc"
     DOWNLOAD_BASE_URL="https://github.com/xchwarze/wifi-pineapple-community/raw/main/packages/experimental"
@@ -79,82 +82,80 @@ prepare_builder () {
         PACKAGE_IPK="${TARGET}_${PACKAGES_ARQ}.ipk"
         PACKAGE_PATH="$IMAGEBUILDER_FOLDER/packages/$PACKAGE_IPK"
         if [ ! -f "$PACKAGE_PATH" ]; then
-            echo "[+] Install: $TARGET"
+            echo "  [+] Install: $TARGET"
             wget -q "$DOWNLOAD_BASE_URL/$PACKAGES_ARQ/$PACKAGE_IPK" -O "$PACKAGE_PATH"
         else
-            echo "[+] Already exist: $TARGET"
+            echo "  [+] Already exist: $TARGET"
         fi
     done
 
-    echo "[+] Builder setup complete"
+    echo "  [+] Builder setup complete"
     echo ""
 }
 
 prepare_build () {
     echo "[*] Prepare build"
     echo "******************************"
-    echo ""
 
     # clean
-    rm -rf _basefw.* basefw.bin
+    rm -rf "$FW_FOLDER/_basefw.*"
     rm -rf "$BUILD_FOLDER/rootfs-base"
     rm -rf "$BUILD_FOLDER/rootfs"
+    rm -rf "$BUILD_FOLDER/release"
     mkdir "$BUILD_FOLDER/release"
 
     # get target firmware
     # this work only with lastest binwalk version!
     if [[ "$FLAVOR" == "tetra" || "$FLAVOR" == "universal" ]]; then
-        #echo "[+] Downloading TETRA firmware..."
-        #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/2.7.0-tetra.bin -O basefw.bin
+        #echo "  [+] Downloading TETRA firmware..."
+        #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/2.7.0-tetra.bin -O "$FW_FOLDER/basefw.bin"
         
-        echo "[+] Unpack firmware for get file system"
-        binwalk basefw.bin -e 
-        binwalk _basefw.bin.extracted/sysupgrade-pineapple-tetra/root -e --preserve-symlinks
-        mv _basefw.bin.extracted/sysupgrade-pineapple-tetra/_root.extracted/squashfs-root/ "$BUILD_FOLDER/rootfs-base"
+        echo "  [+] Unpack firmware for get file system"
+        binwalk "$FW_FOLDER/basefw.bin" -e 
+        binwalk "$FW_FOLDER/_basefw.bin.extracted/sysupgrade-pineapple-tetra/root" -e --preserve-symlinks
+        mv "$FW_FOLDER/_basefw.bin.extracted/sysupgrade-pineapple-tetra/_root.extracted/squashfs-root/" "$BUILD_FOLDER/rootfs-base"
     else
-        #echo "[+] Downloading NANO firmware..."
-        #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/2.7.0-nano.bin -O basefw.bin
+        #echo "  [+] Downloading NANO firmware..."
+        #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/2.7.0-nano.bin -O "$FW_FOLDER/basefw.bin"
 
-        echo "[+] Unpack firmware for get file system"
-        binwalk basefw.bin -e --preserve-symlinks
-        mv _basefw.bin.extracted/squashfs-root/ "$BUILD_FOLDER/rootfs-base"
+        echo "  [+] Unpack firmware for get file system"
+        binwalk "$FW_FOLDER/basefw.bin" -e --preserve-symlinks
+        mv "$FW_FOLDER/_basefw.bin.extracted/squashfs-root/" "$BUILD_FOLDER/rootfs-base"
     fi
 
-    rm -rf _basefw.* basefw.bin
-    #sudo chmod +x "$TOOL_FOLDER/*.sh"
-
-    echo "[+] Copying the original files"
+    echo "  [+] Copying the original files"
     "$TOOL_FOLDER/copier.sh" "$TOOL_FOLDER/../lists/$FLAVOR.filelist" "$BUILD_FOLDER/rootfs-base" "$BUILD_FOLDER/rootfs"
     if [ $? -ne 0 ]; then
-        echo "[!] An error occurred while copying the original files. Check the log for errors."
+        echo "  [!] An error occurred while copying the original files. Check the log for errors."
         exit 1
     fi
 
-    # I'm deleting it because I don't use it anymore
     rm -rf "$BUILD_FOLDER/rootfs-base"
+    rm -rf "$FW_FOLDER"/_basefw.*
 
     if [[ "$ARCHITECTURE" == "mipsel" ]]; then
-        #echo "[+] Downloading old MK7 firmware..."
-        #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/1.1.1-mk7.bin -O basefw-mk7.bin
+        #echo "  [+] Downloading old MK7 firmware..."
+        #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/1.1.1-mk7.bin -O "$FW_FOLDER/basefw-mk7.bin"
 
-        echo "[+] Unpack mipsel firmware for get file system"
-        binwalk basefw-mk7.bin -e --preserve-symlinks
-        mv _basefw-mk7.bin.extracted/squashfs-root/ "$BUILD_FOLDER/rootfs-mk7-base"
+        echo "  [+] Unpack mipsel firmware for get file system"
+        binwalk "$FW_FOLDER/basefw-mk7.bin" -e --preserve-symlinks
+        mv "$FW_FOLDER/_basefw-mk7.bin.extracted/squashfs-root/" "$BUILD_FOLDER/rootfs-mk7-base"
 
-        echo "[+] Copying the original mipsel files"
+        echo "  [+] Copying the original mipsel files"
         "$TOOL_FOLDER/copier.sh" "$TOOL_FOLDER/../lists/mipsel-support.filelist" "$BUILD_FOLDER/rootfs-mk7-base" "$BUILD_FOLDER/rootfs" "true"
         if [ $? -ne 0 ]; then
-            echo "[!] An error occurred while copying the original mipsel files. Check the log for errors."
+            echo "  [!] An error occurred while copying the original mipsel files. Check the log for errors."
             exit 1
         fi
 
         rm -rf "$BUILD_FOLDER/rootfs-mk7-base"
+        rm -rf "$FW_FOLDER"/_basefw-mk7.*
     fi
 
-    echo "[+] Patch file system"
+    echo "  [+] Patch file system"
     "$TOOL_FOLDER/fs-patcher.sh" "$ARCHITECTURE" "$FLAVOR" "$BUILD_FOLDER/rootfs"
     if [ $? -ne 0 ]; then
-        echo "[!] An error occurred during the execution of the process. Check the log for errors."
+        echo "  [!] An error occurred during the execution of the process. Check the log for errors."
         exit 1
     fi
 
@@ -164,10 +165,9 @@ prepare_build () {
 build () {
     echo "[*] Build"
     echo "******************************"
-    echo ""
 
     # clean
-    echo "[+] Clean last build data"
+    echo "  [+] Clean last build data"
     #make clean
     rm -rf "$IMAGEBUILDER_FOLDER/tmp/"
     rm -rf "$IMAGEBUILDER_FOLDER/build_dir/target-*/root*"
@@ -175,7 +175,7 @@ build () {
     rm -rf "$IMAGEBUILDER_FOLDER/bin/targets/*"
 
     # set selected packages
-    echo "[+] Executing make"
+    echo "  [+] Executing make"
     selected_packages="$PACKAGES_UNIVERSAL"
     if [[ "$FLAVOR" == "nano" ]];
     then
@@ -190,7 +190,7 @@ build () {
     make image PROFILE="$1" PACKAGES="$selected_packages" FILES="$BUILD_FOLDER/rootfs" BIN_DIR="$BUILD_FOLDER/release" > "$BUILD_FOLDER/release/make.log"
     if [ $? -ne 0 ]; then
         echo ""
-        echo "[!] An error occurred in the build process. Check file release/make.log for more information."
+        echo "  [!] An error occurred in the build process. Check file release/make.log for more information."
         exit 1
     fi
 
@@ -198,7 +198,7 @@ build () {
     checkFwFileExist=$(ls "$BUILD_FOLDER/release"/*-sysupgrade.* 2>/dev/null | wc -l)
     if [ $checkFwFileExist -eq 0 ]; then
         echo ""
-        echo "[!] OpenWRT finished the build process but no firmware was found. Check the release/make.log to see if the process was completed correctly."
+        echo "  [!] OpenWRT finished the build process but no firmware was found. Check the release/make.log to see if the process was completed correctly."
         #exit 1
     fi
     echo ""
