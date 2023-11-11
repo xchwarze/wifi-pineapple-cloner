@@ -46,7 +46,7 @@
 /etc/init.d/resetssids
 
 # karma
-/lib/netifd/wireless/mac80211.sh
-/lib/netifd/hostapd.sh
+#/lib/netifd/wireless/mac80211.sh
+#/lib/netifd/hostapd.sh
 /usr/sbin/hostapd_cli
 /usr/sbin/wpad
