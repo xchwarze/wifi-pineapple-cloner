@@ -191,8 +191,8 @@ build () {
     echo "  [+] Clean last build data"
     #make clean
     rm -rf "$IMAGEBUILDER_FOLDER/tmp/"
-    rm -rf "$IMAGEBUILDER_FOLDER/build_dir/target-*/root*"
-    rm -rf "$IMAGEBUILDER_FOLDER/build_dir/target-*/json_*"
+    rm -rf "$IMAGEBUILDER_FOLDER/build_dir"/target-*/root*
+    rm -rf "$IMAGEBUILDER_FOLDER/build_dir"/target-*/json_*
     rm -rf "$IMAGEBUILDER_FOLDER/bin/targets/*"
 
     # set selected packages
