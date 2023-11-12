@@ -31,6 +31,12 @@ PACKAGES_UNIVERSAL="iw at autossh base-files bash block-mount ca-certificates ch
 # add missing deps and custom busybox build
 declare -a FORCE_PACKAGES=("libubus20191227_2019-12-27-041c9d1c-1" "busybox_1.30.1-6")
 
+# fw hash
+FW_TETRA_HASH="081278abfc227078b642b80c6a965c26b11bf820"
+FW_NANO_HASH="3e087e6e9256431f2022e8e70373569d57f7ec77"
+FW_MK7_HASH="32ba9cc3fd7e1b4489a14c1b3c5b4af118dff810"
+
+# fix folders paths
 IMAGEBUILDER_FOLDER="$(realpath $IMAGEBUILDER_FOLDER)"
 TOOL_FOLDER="$(realpath $(dirname $0)/../tools)"
 BUILD_FOLDER="$(realpath $(dirname $0)/../build)"
@@ -110,6 +116,11 @@ prepare_build () {
         #echo "  [+] Downloading TETRA firmware..."
         #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/2.7.0-tetra.bin -O "$FW_FOLDER/basefw.bin"
         
+        FW_HASH=$(sha1sum "$FW_FOLDER/basefw.bin" | awk '{ print $1 }')
+        if [ "$FW_HASH" != "$FW_TETRA_HASH" ]; then
+            echo "  [!] WARNING file basefw.bin hash does not match"
+        fi
+
         echo "  [+] Unpack firmware for get file system"
         binwalk "$FW_FOLDER/basefw.bin" -e 
         binwalk "$FW_FOLDER/_basefw.bin.extracted/sysupgrade-pineapple-tetra/root" -e --preserve-symlinks
@@ -117,6 +128,11 @@ prepare_build () {
     else
         #echo "  [+] Downloading NANO firmware..."
         #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/2.7.0-nano.bin -O "$FW_FOLDER/basefw.bin"
+
+        FW_HASH=$(sha1sum "$FW_FOLDER/basefw.bin" | awk '{ print $1 }')
+        if [ "$FW_HASH" != "$FW_NANO_HASH" ]; then
+            echo "  [!] WARNING file basefw.bin hash does not match"
+        fi
 
         echo "  [+] Unpack firmware for get file system"
         binwalk "$FW_FOLDER/basefw.bin" -e --preserve-symlinks
@@ -136,6 +152,11 @@ prepare_build () {
     if [[ "$ARCHITECTURE" == "mipsel" ]]; then
         #echo "  [+] Downloading old MK7 firmware..."
         #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/1.1.1-mk7.bin -O "$FW_FOLDER/basefw-mk7.bin"
+
+        FW_HASH=$(sha1sum "$FW_FOLDER/basefw-mk7.bin" | awk '{ print $1 }')
+        if [ "$FW_HASH" != "$FW_MK7_HASH" ]; then
+            echo "  [!] WARNING file basefw-mk7.bin hash does not match"
+        fi
 
         echo "  [+] Unpack mipsel firmware for get file system"
         binwalk "$FW_FOLDER/basefw-mk7.bin" -e --preserve-symlinks

@@ -149,31 +149,6 @@ common_patch () {
 
     # add new banner
     cp "$FILES_FOLDER/common/etc/banner" "$ROOT_FS/etc/banner"
-
-    # patch elf files
-    if [[ "$ARCHITECTURE" == "mips" ]]; then
-        xxd "$ROOT_FS/usr/bin/pineap" "$ROOT_FS/usr/bin/pineap.hex"
-        sed -i 's/6361 7420 2f70 726f 632f 636d 646c 696e/6563 686f 2027 5049 4e45 4150 504c 452d/' "$ROOT_FS/usr/bin/pineap.hex"
-        sed -i 's/6520 7c20 6177 6b20 277b 2073 706c 6974/5445 5452 4127 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/bin/pineap.hex"
-        sed -i 's/2824 312c 782c 223d 2229 3b20 7072 696e/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/bin/pineap.hex"
-        sed -i 's/7420 785b 325d 207d 2700 0000 5749 4649/2020 2020 2020 2020 2000 0000 5749 4649/' "$ROOT_FS/usr/bin/pineap.hex"
-        sed -i 's/6420 7379 6e74 6178 2065 6e61 626c 6564/6420 5B57 5043 2056 4552 5349 4F4E 5D20/' "$ROOT_FS/usr/bin/pineap.hex"
-        xxd -r "$ROOT_FS/usr/bin/pineap.hex" "$ROOT_FS/usr/bin/pineap"
-        rm "$ROOT_FS/usr/bin/pineap.hex"
-
-        xxd "$ROOT_FS/usr/sbin/pineapd" "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/7065 6e64 0000 0000 6361 7420 2f70 726f/7065 6e64 0000 0000 6563 686f 2027 5049/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/632f 636d 646c 696e 6520 7c20 6177 6b20/4e45 4150 504c 452d 5445 5452 4127 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/277b 2073 706c 6974 2824 312c 782c 223d/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/2229 3b20 7072 696e 7420 785b 325d 207d/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/2700 0000 646d 6573 6720 7c20 6865 6164/2000 0000 646d 6573 6720 7c20 6865 6164/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/2079 5b31 5d7d 2700 646d 6573 6720 7c20/2079 5b31 5d7d 2700 6563 686f 2027 4152/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/6865 6164 202d 6e34 207c 2061 776b 2027/3933 3434 2072 6576 2720 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/464e 5220 3d3d 2034 207b 2070 7269 6e74/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        sed -i 's/2824 352c 2024 3629 207d 2700 2564 2d25/2020 2020 2020 2020 2020 2000 2564 2d25/' "$ROOT_FS/usr/sbin/pineapd.hex"
-        xxd -r "$ROOT_FS/usr/sbin/pineapd.hex" "$ROOT_FS/usr/sbin/pineapd"
-        rm "$ROOT_FS/usr/sbin/pineapd.hex"
-    fi
 }
 
 mipsel_patch () {
@@ -195,29 +170,6 @@ mipsel_patch () {
     # use old name for sniffer
     rm "$ROOT_FS/usr/sbin/http_sniffer"
     mv "$ROOT_FS/usr/sbin/sniffer" "$ROOT_FS/usr/sbin/http_sniffer"
-
-    # patch elf files
-    xxd "$ROOT_FS/usr/bin/pineap" "$ROOT_FS/usr/bin/pineap.hex"
-    sed -i 's/6420 7379 6e74 6178 2065 6e61 626c 6564/6420 5B57 5043 2056 4552 5349 4F4E 5D20/' "$ROOT_FS/usr/bin/pineap.hex"
-    xxd -r "$ROOT_FS/usr/bin/pineap.hex" "$ROOT_FS/usr/bin/pineap"
-    rm "$ROOT_FS/usr/bin/pineap.hex"
-
-    xxd "$ROOT_FS/usr/sbin/pineapd" "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/3030 3a30 3000 0000 202d 2000 6865 6164/3030 3a30 3000 0000 202d 2000 6563 686f/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/202d 6e32 202f 7072 6f63 2f63 7075 696e/2027 4861 6b35 2057 6946 6920 5069 6e65/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/666f 207c 2074 6169 6c20 2d6e 2031 207c/6170 706c 6520 4d61 726b 2037 2720 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/2061 776b 2027 7b70 7269 6e74 2824 332c/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/2434 2c24 352c 2436 2c24 3729 7d27 0000/2020 2020 2020 2020 2020 2020 2020 0000/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/6865 6164 202d 6e31 3020 2f70 726f 632f/6563 686f 2027 5b30 7830 6666 632c 2030/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/6370 7569 6e66 6f20 7c20 7461 696c 202d/7830 6666 632c 2030 7830 6666 622c 2030/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/6e20 3120 7c20 6177 6b20 277b 2070 7269/7830 6666 625d 2720 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/6e74 2824 392c 2431 302c 2431 312c 2431/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/3229 3b20 7d27 0000 6865 6164 202d 6e35/2020 2020 2020 0000 6563 686f 2027 3338/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/202f 7072 6f63 2f63 7075 696e 666f 207c/352e 3834 2720 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/2074 6169 6c20 2d6e 2031 207c 2061 776b/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    sed -i 's/2027 7b70 7269 6e74 2824 3329 7d27 0000/2020 2020 2020 2020 2020 2020 2020 0000/' "$ROOT_FS/usr/sbin/pineapd.hex"
-    xxd -r "$ROOT_FS/usr/sbin/pineapd.hex" "$ROOT_FS/usr/sbin/pineapd"
-    rm "$ROOT_FS/usr/sbin/pineapd.hex"
 }
 
 nano_patch () {
@@ -277,6 +229,56 @@ universal_patch () {
     sed -i 's/DEVICE/OMEGA/' "$ROOT_FS/etc/banner"
 }
 
+elf_patch () {
+    echo "[*] Patch elf files"
+
+    if [[ "$ARCHITECTURE" == "mips" ]]; then
+        xxd "$ROOT_FS/usr/bin/pineap" "$ROOT_FS/usr/bin/pineap.hex"
+        sed -i 's/6361 7420 2f70 726f 632f 636d 646c 696e/6563 686f 2027 5049 4e45 4150 504c 452d/' "$ROOT_FS/usr/bin/pineap.hex"
+        sed -i 's/6520 7c20 6177 6b20 277b 2073 706c 6974/5445 5452 4127 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/bin/pineap.hex"
+        sed -i 's/2824 312c 782c 223d 2229 3b20 7072 696e/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/bin/pineap.hex"
+        sed -i 's/7420 785b 325d 207d 2700 0000 5749 4649/2020 2020 2020 2020 2000 0000 5749 4649/' "$ROOT_FS/usr/bin/pineap.hex"
+        sed -i 's/6420 7379 6e74 6178 2065 6e61 626c 6564/6420 5B57 5043 2056 4552 5349 4F4E 5D20/' "$ROOT_FS/usr/bin/pineap.hex"
+        xxd -r "$ROOT_FS/usr/bin/pineap.hex" "$ROOT_FS/usr/bin/pineap"
+        rm "$ROOT_FS/usr/bin/pineap.hex"
+
+        xxd "$ROOT_FS/usr/sbin/pineapd" "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/7065 6e64 0000 0000 6361 7420 2f70 726f/7065 6e64 0000 0000 6563 686f 2027 5049/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/632f 636d 646c 696e 6520 7c20 6177 6b20/4e45 4150 504c 452d 5445 5452 4127 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/277b 2073 706c 6974 2824 312c 782c 223d/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2229 3b20 7072 696e 7420 785b 325d 207d/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2700 0000 646d 6573 6720 7c20 6865 6164/2000 0000 646d 6573 6720 7c20 6865 6164/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2079 5b31 5d7d 2700 646d 6573 6720 7c20/2079 5b31 5d7d 2700 6563 686f 2027 4152/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/6865 6164 202d 6e34 207c 2061 776b 2027/3933 3434 2072 6576 2720 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/464e 5220 3d3d 2034 207b 2070 7269 6e74/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2824 352c 2024 3629 207d 2700 2564 2d25/2020 2020 2020 2020 2020 2000 2564 2d25/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        xxd -r "$ROOT_FS/usr/sbin/pineapd.hex" "$ROOT_FS/usr/sbin/pineapd"
+        rm "$ROOT_FS/usr/sbin/pineapd.hex"
+    else
+        xxd "$ROOT_FS/usr/bin/pineap" "$ROOT_FS/usr/bin/pineap.hex"
+        sed -i 's/6420 7379 6e74 6178 2065 6e61 626c 6564/6420 5B57 5043 2056 4552 5349 4F4E 5D20/' "$ROOT_FS/usr/bin/pineap.hex"
+        xxd -r "$ROOT_FS/usr/bin/pineap.hex" "$ROOT_FS/usr/bin/pineap"
+        rm "$ROOT_FS/usr/bin/pineap.hex"
+
+        xxd "$ROOT_FS/usr/sbin/pineapd" "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/3030 3a30 3000 0000 202d 2000 6865 6164/3030 3a30 3000 0000 202d 2000 6563 686f/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/202d 6e32 202f 7072 6f63 2f63 7075 696e/2027 4861 6b35 2057 6946 6920 5069 6e65/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/666f 207c 2074 6169 6c20 2d6e 2031 207c/6170 706c 6520 4d61 726b 2037 2720 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2061 776b 2027 7b70 7269 6e74 2824 332c/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2434 2c24 352c 2436 2c24 3729 7d27 0000/2020 2020 2020 2020 2020 2020 2020 0000/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/6865 6164 202d 6e31 3020 2f70 726f 632f/6563 686f 2027 5b30 7830 6666 632c 2030/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/6370 7569 6e66 6f20 7c20 7461 696c 202d/7830 6666 632c 2030 7830 6666 622c 2030/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/6e20 3120 7c20 6177 6b20 277b 2070 7269/7830 6666 625d 2720 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/6e74 2824 392c 2431 302c 2431 312c 2431/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/3229 3b20 7d27 0000 6865 6164 202d 6e35/2020 2020 2020 0000 6563 686f 2027 3338/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/202f 7072 6f63 2f63 7075 696e 666f 207c/352e 3834 2720 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2074 6169 6c20 2d6e 2031 207c 2061 776b/2020 2020 2020 2020 2020 2020 2020 2020/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        sed -i 's/2027 7b70 7269 6e74 2824 3329 7d27 0000/2020 2020 2020 2020 2020 2020 2020 0000/' "$ROOT_FS/usr/sbin/pineapd.hex"
+        xxd -r "$ROOT_FS/usr/sbin/pineapd.hex" "$ROOT_FS/usr/sbin/pineapd"
+        rm "$ROOT_FS/usr/sbin/pineapd.hex"
+    fi
+}
+
 
 
 # implement....
@@ -290,6 +292,7 @@ if [[ "$ARCHITECTURE" == "mipsel" ]]; then
     mipsel_patch
 fi
 common_patch
+elf_patch
 
 echo "[*] Setting target as: $FLAVOR"
 if [[ $FLAVOR = 'nano' ]]

@@ -13,7 +13,10 @@ declare -a OPENWRT_MIPSEL_TARGET_LIST=(
 install_openwrt_deps () {
     TARGET="$1"
 
-    FOLDER_NAME="imagebuilder-$OPENWRT_VERSION-$TARGET"
+    if [ ! -d "imagebuilder" ]; then
+        mkdir "imagebuilder"
+    fi
+    FOLDER_NAME="imagebuilder/$OPENWRT_VERSION-$TARGET"
     ORIGINAL_FOLDER_NAME="openwrt-imagebuilder-$OPENWRT_VERSION-$TARGET.Linux-x86_64"
     FILE="$FOLDER_NAME.tar.xz"
 
@@ -33,7 +36,7 @@ install_openwrt_deps () {
         rm -rf "$FOLDER_NAME"
         tar xJf "$FILE"
         mv "$ORIGINAL_FOLDER_NAME" "$FOLDER_NAME"
-        rm "$FILE"
+        #rm "$FILE"
 
         # correct opkg feeds
         echo "    [+] Correct opkg feeds"

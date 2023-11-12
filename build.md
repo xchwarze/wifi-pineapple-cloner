@@ -6,7 +6,7 @@ Depending on what you decide to build the scrript will guide the user on what fi
 chmod +x tools/*.sh
 tools/dependencies-install.sh openwrt-deps-mips
 sudo tools/dependencies-install.sh ubuntu-deps
-tools/builder.sh mips universal imagebuilder-19.07.7-ar71xx-generic gl-ar750s
+tools/builder.sh mips universal imagebuilder/19.07.7-ar71xx-generic gl-ar750s
 ```
 <br>
 
