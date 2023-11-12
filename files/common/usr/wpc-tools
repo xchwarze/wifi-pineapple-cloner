@@ -13,7 +13,7 @@ Available commands:
     set_pineap_interface Change the interface used by PineAP 
     handle_lost_phys     Fix unrecognized wifi interfaces
 "
-PACKAGES="python-logging python-openssl python-sqlite3 python-codecs"
+PACKAGES="python-logging python-openssl python-sqlite3 python-codecs php7-cgi"
 
 to_logger() {
     logger -s -t wpc "$1"
