@@ -36,7 +36,7 @@ You can find the complete steps to build this project in [this document](build.m
 There are 211 devices supported by the project. You can see the full [list here](devices.md).
 <br>
 
-Also I made a second repo for [downloads](https://github.com/xchwarze/wifi-pineapple-cloner-builds) where you can find the firmwares already made for the most common devices of the Supported devices list.
+Also I made a second repo for [downloads](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) where you can find the firmwares already made for the most common devices of the Supported devices list.
 <br>
 
 
@@ -59,7 +59,7 @@ Therefore, the most refined method I have devised not only significantly reduces
 1. Install OpenWrt version 19.07.7 on your router.
 <br>
 
-2. Use SCP to upload the [firmware image](https://github.com/xchwarze/wifi-pineapple-cloner-builds) in your device.
+2. Use SCP to upload the [firmware image](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) in your device.
 ```bash
 scp gl-ar750s-universal-sysupgrade.bin root@192.168.1.1:/tmp 
 root@192.168.1.1's password: 
@@ -76,7 +76,7 @@ sysupgrade -n -F /tmp/gl-ar750s-universal-sysupgrade.bin
 
 4. Enter to pineapple panel and enjoy! `http://172.16.42.1:1471/`
 
-In the [download](https://github.com/xchwarze/wifi-pineapple-cloner-builds) repo you can find some debugging tips if you have problems.
+In the [download](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) repo you can find some debugging tips if you have problems.
 <br>
 
 5. Once installed, the project has a tool that helps us to do several things.
