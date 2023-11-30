@@ -30,7 +30,9 @@ tools/builder.sh mips universal imagebuilder/19.07.7-ar71xx-generic gl-ar750s
 
 ## Manual Build steps
 
-1. Unpack firmware for get file system
+0. You must have the dependencies installed for Binwalk and openwrt imagebuilder to work properly. For this you can see the script tools/dependencies-install.sh
+
+2. Unpack firmware for get file system
 ```bash
 # install last version of binwalk first!
 # https://github.com/ReFirmLabs/binwalk
