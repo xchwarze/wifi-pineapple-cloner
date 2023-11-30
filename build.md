@@ -1,3 +1,20 @@
+## Brief explanation of this process
+
+Like any software, the process to run it on another platform for which it was not designed is the porting process.
+For this you must meet the minimum requirements that consist of:
+1. The hardware must support the instructionset and endianness. In this case it must be mips or mipsel.
+2. The hardware in characteristics must be similar to the original or better.
+3. The binaries to be compiled for OpenWrt 19.07.02 only work correctly in this version. Starting from a bigger version adds complications in the process and surely less things will work on the device.
+
+I could spend hours explaining how the analysis was carried out and what is the explanation behind each decision taken. I summarize it in these steps:
+1. We extract the original file system to work.
+2. We generate the list of dependencies to be installed. For this I developed the script `opkg-parser.php`.
+3. We generate a composite FS with the things that are not third party dependencies. For this I made the lists of files to copy in each case and programmed a small script that uses those lists to automate the process.
+4. We analyze those files and edit them to make them work on any device. You guessed it, for this step I also decided to make a script, it called `fs-patcher.sh`.
+5. We generate the build and iterate the process until we have a fully functional port. This step can become a time consuming black hole.
+<br>
+
+
 ## Automatic Build steps
 
 All these steps are automated in `dependencies-install.sh` and `builder.sh`.
