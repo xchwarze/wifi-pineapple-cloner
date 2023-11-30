@@ -66,7 +66,8 @@ chmod +x tools/fs-patcher.sh
 tools/fs-patcher.sh mips rootfs nano
 ```
 
-4. Build your custom build
+4. Build your custom build.<br>
+It is advisable to tell the builder not to install some packages by default that would cause problems for our use case. These are the ones that I added at the end: `-wpad-basic -dropbear`.
 ```bash
 # for this poc use openwrt imagebuilder v19.07.2 for ar71xx
 wget https://downloads.openwrt.org/releases/19.07.2/targets/ar71xx/generic/openwrt-imagebuilder-19.07.2-ar71xx-generic.Linux-x86_64.tar.xz
