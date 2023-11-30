@@ -11,7 +11,7 @@ So at the time of redoing this project I decided to rescue the original name fro
 
 ## About this project
 
-This project is the result of everything I've experienced from 2018 to 2022 to successfully clone the NANO and TETRA in any hardware.<br>
+This project is the result of everything I've experienced from 2018 to 2022 to successfully port the NANO and TETRA in any hardware.<br>
 
 For this I've develop:
 * The method of patching the file system with the minimum to be able to work. For this I created the list of files to copy and the script that copies them.
@@ -27,13 +27,13 @@ For this I've develop:
 
 ## Builds
 
-You can find the complete steps to build this project in [this document](build.md). I also added several important notes about this.
+You can find the complete steps to build this project in [this document](build.md). I have also added several important notes that will help you to try porting to other devices.
 <br>
 
 
 ## Supported devices
 
-There are 211 devices supported by the project. You can see the full [list here](devices.md).
+There are 211 identified devices that can perfectly run the development. You can see the full [list here](devices.md).
 <br>
 
 Also I made a second repo for [downloads](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) where you can find the firmwares already made for the most common devices of the Supported devices list.
