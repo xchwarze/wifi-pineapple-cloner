@@ -1,6 +1,7 @@
 # Devices list
 
 The list of compatible devices is made with the data provided by OpenWRT. The criteria used to generate this list were that they are available in OpenWRT 19 and have the same capabilities as the original hardware.<br>
+The devices in this list are mass consumption devices and the user would not have to make any extra modifications to make them work.<br>
 **OpenWRT data may be incorrect for some devices.**
 <br><br>
 
