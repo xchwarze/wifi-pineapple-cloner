@@ -30,6 +30,9 @@ For this I've develop:
 You can find the complete steps to build this project in [this document](build.md). I have also added several important notes that will help you to try porting to other devices.
 <br>
 
+If you are interested in developing tools of this type, you may find my new development interesting [Frieren](https://github.com/xchwarze/frieren)
+<br>
+
 
 ## Supported devices
 
@@ -39,6 +42,8 @@ There are 211 identified devices that can perfectly run the development. You can
 Also I made a second repo for [downloads](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) where you can find the firmwares already made for the most common devices of the Supported devices list.
 <br>
 
+**If your device is not in the list or you just want something more modern you can try my other project [Frieren](https://github.com/xchwarze/frieren)**
+<br>
 
 ## What differences are there with other methods using by firmwares that I can download from the internet?
 
