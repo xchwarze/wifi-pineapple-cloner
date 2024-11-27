@@ -87,7 +87,7 @@ prepare_builder () {
     for TARGET in ${FORCE_PACKAGES[@]}; do
         PACKAGE_IPK="${TARGET}_${PACKAGES_ARQ}.ipk"
         PACKAGE_PATH="$IMAGEBUILDER_FOLDER/packages/$PACKAGE_IPK"
-        if [ ! -f "$PACKAGE_PATH" ]; then
+        if [ ! -f "$PACKAGE_PATH" ] || [ ! -s "$PACKAGE_PATH" ]; then
             echo "  [+] Install: $TARGET"
             wget -q "$DOWNLOAD_BASE_URL/$PACKAGES_ARQ/$PACKAGE_IPK" -O "$PACKAGE_PATH"
         else
