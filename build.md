@@ -31,6 +31,7 @@ tools/builder.sh mips universal imagebuilder/19.07.7-ar71xx-generic gl-ar750s
 ## Manual Build steps
 
 0. You must have the dependencies installed for Binwalk and openwrt imagebuilder to work properly. For this you can see the script tools/dependencies-install.sh
+I recommend that you read the scripts I made to understand all the extra steps and other decisions that may not be reflected in these notes.
 
 2. Unpack firmware for get file system
 ```bash
@@ -160,7 +161,7 @@ Your version has to support it, so as not to have this type of errors:
 /lib/netifd/hostapd.sh
 /lib/wifi/mac80211.sh
 ```
-You may have to make yours based on these.
+You may have to make yours based on these. It is also worth mentioning that there are other modifications specific to the Karma attack.
 <br>
 
 6. Busybox applets list:
