@@ -47,7 +47,7 @@ Also I made a second repo for [downloads](https://gitlab.com/xchwarze/wifi-pinea
 
 ## What differences are there with other methods using by firmwares that I can download from the internet?
 
-All the firmwares found on the internet have been created using the [securityaddicted method](https://www.securityaddicted.com/2016/11/17/weaponizing-gl-inet-gl-ar150/), which involves duplicating the entire original file system. However, this approach consumes excessive space and often leads to instability. As a result, I have developed a new and improved method.
+All the firmwares found on the internet have been created using [Patrick Sapinski's method](https://sapinski.com/2016/02/13/wifi-pineapple-firmware-for-gl-inet-gl-ar150/), which involves duplicating the entire original file system. However, this approach consumes excessive space and often leads to instability. As a result, I have developed a new and improved method.
 
 I introduced this new method during my presentations about hardware porting at EkoParty 2020 and DragonJar 2021. You can access the materials from those [presentations here](https://github.com/indetectables-net/embedded).
 
