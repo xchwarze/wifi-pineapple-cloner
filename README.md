@@ -36,7 +36,10 @@ If you are interested in developing tools of this type, you may find my new deve
 
 ## Supported devices
 
-There are 211 identified devices that can perfectly run the development. You can see the full [list here](devices.md).
+There are 211 identified devices that can perfectly run the development. You can see the full [list here](devices.md). 
+<br>
+
+If you want to test the tool on unsupported routers, you can find **private versions on Patreon**.
 <br>
 
 Also I made a second repo for [downloads](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) where you can find the firmwares already made for the most common devices of the Supported devices list.
