@@ -5,6 +5,9 @@ The devices in this list are mass consumption devices and the user would not hav
 **OpenWRT data may be incorrect for some devices.**
 <br><br>
 
+If you want to test the tool on unsupported routers, you can find **private versions on Patreon**. 
+<br><br>
+
 Brand | Device | Type | CPU (MHz) | Flash (MB) | RAM (MB) | Architecture | Availability |
 -------------|-------------|-----------|-----------|-----------|-----------|-----------|-----------|
 8devices | Carambola 2  | Single Board Computer | 400 | 16 | 64 | mips_24kc | Available 2019
