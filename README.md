@@ -100,9 +100,11 @@ wpc-tools theme_install
 
 2. USB 2.0 [2 ports hub](https://www.ebay.com/itm/144520475350)
 
-3. Generic [RT5370 WIFI adapter](https://www.ebay.com/itm/284904442887) or [MT7612U WIFI adapter](https://www.ebay.com/itm/175219205235) **you're really going to need this on hardware that doesn't have two wifi adapters**
+3. USB Pendrive or a SD Card (depending on what your router best supports) 
 
-4. Please support Hak5 work and buy the new hardware!
+4. Generic [RT5370 WIFI adapter](https://www.ebay.com/itm/284904442887) or [MT7612U WIFI adapter](https://www.ebay.com/itm/175219205235) **you're really going to need this on hardware that doesn't have two wifi adapters**
+
+5. Please support Hak5 work and buy the new hardware!
 
 
 ## Patreon and Tips!
