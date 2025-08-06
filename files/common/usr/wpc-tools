@@ -96,8 +96,8 @@ set_router_ip() {
     fi
 
     gateway_ip="${new_ip%.*}.42"
-    uci set network.lan.ipaddr="$gateway_ip"
-    uci set network.lan.gateway="$new_ip"
+    uci set network.lan.ipaddr="$new_ip"
+    uci set network.lan.gateway="$gateway_ip"
     uci commit network
 
     to_logger "[+] The LAN IP address has been updated to: $new_ip"
@@ -105,7 +105,7 @@ set_router_ip() {
 }
 
 set_pineap_interface() {
-    new_iface=$(echo $1 | sed 's/mon//')
+    new_iface=$(echo "$1" | sed 's/mon//')
     iface=$(uci get pineap.@config[0].pineap_interface | sed 's/mon//')
     if [[ "$new_iface" == "" ]]; then  
         to_logger "[!] Error: You must select a new interface to assign to"
