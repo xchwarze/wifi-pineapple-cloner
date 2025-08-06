@@ -5,7 +5,6 @@ uci set network.lan.ipaddr='172.16.42.1'
 uci set network.lan.netmask='255.255.255.0'
 uci set network.lan.gateway='172.16.42.42'
 uci set network.lan.dns='1.1.1.1 1.0.0.1'
-#uci set network.usb.peerdns='0'
 
 uci set network.usb=interface
 uci set network.usb.ifname='usb0'
