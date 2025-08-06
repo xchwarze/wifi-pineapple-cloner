@@ -5,25 +5,28 @@ uci set network.lan.ipaddr='172.16.42.1'
 uci set network.lan.netmask='255.255.255.0'
 uci set network.lan.gateway='172.16.42.42'
 uci set network.lan.dns='1.1.1.1 1.0.0.1'
+uci set network.lan.peerdns='0'
 
 uci set network.usb=interface
 uci set network.usb.ifname='usb0'
 uci set network.usb.proto='dhcp'
 uci set network.usb.dns='1.1.1.1 1.0.0.1'
-#uci set network.usb.peerdns='0'
+uci set network.usb.peerdns='0'
 
 uci set network.wan=interface
 uci set network.wan.proto='dhcp'
 uci set network.wan.dns='1.1.1.1 1.0.0.1'
-#uci set network.wan.peerdns='0'
+uci set network.wan.peerdns='0'
+
+uci set network.wan6=interface
+uci set network.wan6.proto='dhcpv6'
+uci set network.wan6.dns='2606:4700:4700::1111 2606:4700:4700::1001'
+uci set network.wan6.peerdns='0'
 
 uci set network.wwan=interface
 uci set network.wwan.proto='dhcp'
 uci set network.wwan.dns='1.1.1.1 1.0.0.1'
-#uci set network.wwan.peerdns='0'
-
-uci set network.wan6=interface
-uci set network.wan6.proto='dhcpv6'
+uci set network.wwan.peerdns='0'
 
 uci commit network
 
