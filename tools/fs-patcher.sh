@@ -79,6 +79,10 @@ common_patch () {
     truncate -s 0 "$ROOT_FS/pineapple/modules/Setup/eula.txt"
     truncate -s 0 "$ROOT_FS/pineapple/modules/Setup/license.txt"
 
+    # clean duplicate files
+    rm -f "$ROOT_FS/etc/pineapple/changes"
+    rm -f "$ROOT_FS/etc/pineapple/pineapple_version"
+
 
     echo "[*] Enable ssh by default"
 
@@ -126,10 +130,6 @@ common_patch () {
 
 
     echo "[*] Other fixs"
-
-    # clean files
-    rm -f "$ROOT_FS/etc/pineapple/changes"
-    rm -f "$ROOT_FS/etc/pineapple/pineapple_version"
 
     # default wifi config
     cp "$FILES_FOLDER/common/lib/mac80211.sh" "$ROOT_FS/lib/wifi/mac80211.sh"
