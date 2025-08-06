@@ -6,7 +6,6 @@
 
 /etc/hotplug.d/block/20-sd
 /etc/hotplug.d/iface/20-autossh
-/etc/hotplug.d/iface/30-usb
 /etc/hotplug.d/usb/30-fix_wifi
 /etc/hotplug.d/usb/30-sd
 
@@ -121,3 +120,4 @@
 /lib/netifd/hostapd.sh
 /usr/sbin/hostapd_cli
 /usr/sbin/wpad
+
