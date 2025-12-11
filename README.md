@@ -44,17 +44,23 @@ Additionally, the [build repository](https://gitlab.com/xchwarze/wifi-pineapple-
 **If your device isn’t listed or you prefer a newer, actively developed alternative, check out my other project [Frieren](https://github.com/xchwarze/frieren).**
 
 
-## What differences are there with other methods using by firmwares that I can download from the internet?
+## How does this method differ from other firmware builds available online?
 
-All the firmwares found on the internet have been created using [Patrick Sapinski's method](https://sapinski.com/2016/02/13/wifi-pineapple-firmware-for-gl-inet-gl-ar150/), which involves duplicating the entire original file system. However, this approach consumes excessive space and often leads to instability. As a result, I have developed a new and improved method.
+Most firmware images found on the internet are created using [Patrick Sapinski’s method](https://sapinski.com/2016/02/13/wifi-pineapple-firmware-for-gl-inet-gl-ar150/), which duplicates the entire original filesystem.  
+While it works, this approach wastes space and frequently causes instability — that’s why I developed a new, optimized technique.
 
-I introduced this new method during my presentations about hardware porting at EkoParty 2020 and DragonJar 2021. You can access the materials from those [presentations here](https://github.com/indetectables-net/embedded).
+I first presented this improved method at **EkoParty 2020** and **DragonJar 2021** during my hardware porting talks.  
+You can find the materials from those presentations [here](https://github.com/indetectables-net/embedded).
 
-In 2021, an [idiot named Samy Younsi](https://github.com/xchwarze/wifi-pineapple-cloner/issues/5), shamelessly plagiarized the method I had developed and presented at conferences. Months later, he adapted it to Python using the Wifi Pineapple Cloner v1 version and continued spreading it as his own creation.
+In 2021, an [idiot named Samy Younsi](https://github.com/xchwarze/wifi-pineapple-cloner/issues/5) shamelessly plagiarized my work, copying the method I had developed and showcased at conferences.  
+A few months later, he rewrote it in Python based on **Wifi Pineapple Cloner v1** and started distributing it as his own.
 
-Throughout 2022, I debugged the method and mastered its usage, enabling me to successfully port the pineapple to any hardware and achieve flawless functionality, identical to that of the original device.
+During 2022, I refined and fully debugged the process, making it possible to port the Pineapple firmware to almost any hardware with results identical to the original device.
 
-Therefore, the most refined method I have devised not only significantly reduces the firmware's file size but also guarantees stability comparable to the original hardware.<br>
+This final iteration achieves:
+- **Much smaller firmware size**  
+- **Higher stability and reliability**  
+- **Performance indistinguishable from official hardware**
 <br>
 
 
@@ -80,7 +86,7 @@ Therefore, the most refined method I have devised not only significantly reduces
 6. Once installed, the project has a tool that helps us to do several things.
    For example you can use it to change the panel theme with this command:
    ```bash
-      wpc-tools theme_install
+   wpc-tools theme_install
    ```
 
 
@@ -104,4 +110,5 @@ I also made a [Patreon](https://www.patreon.com/xchwarze) account where I share 
 
 [![patreon](assets/patreon.png)](https://www.patreon.com/xchwarze)
 ![binance-qr](assets/binance-qr.png)
+
 
