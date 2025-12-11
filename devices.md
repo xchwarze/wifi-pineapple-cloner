@@ -2,14 +2,12 @@
 
 The compatibility list was generated using official **OpenWrt device data**.  
 Only models available in **OpenWrt 19** and featuring hardware comparable to the original target device were included.  
-<br>
 
 All listed routers are **consumer-grade units** that require no hardware modification to operate properly.  
 However, keep in mind that **OpenWrt’s information may be inaccurate for some models**, so verify specifications before flashing.  
-<br><br>
 
 If you wish to experiment with unsupported hardware, **private test builds are available on Patreon** for evaluation purposes.  
-<br><br>
+<br>
 
 Brand | Device | Type | CPU (MHz) | Flash (MB) | RAM (MB) | Architecture | Availability |
 -------------|-------------|-----------|-----------|-----------|-----------|-----------|-----------|
@@ -224,4 +222,5 @@ ZyXEL | Keenetic Viva rev. B | WiFi Router | 580 | 16 | 128 | mipsel_24kc | Disc
 ZyXEL | NBG6616 A00 | WiFi Router | 720 | 16 | 128 | mips_24kc | Discontinued 2020
 ZyXEL | NBG6716 A01 | WiFi Router | 720 | 16,256 | 256 | mips_24kc | Discontinued 2016
 ZyXEL | P-2812HNU-F1  | WiFi Router | 500 | 128NAND | 128 | mips_24kc | Discontinued
+
 
