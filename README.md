@@ -28,26 +28,20 @@ For this I've develop:
 ## Builds
 
 You can find the complete steps to build this project in [this document](build.md). I have also added several important notes that will help you to try porting to other devices.
-<br>
 
 If you are interested in developing tools of this type, you may find my new development interesting [Frieren](https://github.com/xchwarze/frieren)
-<br>
 
 
 ## Supported devices
 
 This project supports over **200 confirmed devices** capable of running the firmware without issues.  
 You can check the complete [supported devices list](devices.md) for detailed compatibility information.  
-<br>
 
 If your router is not officially supported, **private test builds** are available on Patreon for experimental use.  
-<br>
 
 Additionally, the [build repository](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) contains precompiled firmware images for the most common supported models.  
-<br>
 
 **If your device isn’t listed or you prefer a newer, actively developed alternative, check out my other project [Frieren](https://github.com/xchwarze/frieren).**
-<br>
 
 
 ## What differences are there with other methods using by firmwares that I can download from the internet?
@@ -86,7 +80,7 @@ Therefore, the most refined method I have devised not only significantly reduces
 6. Once installed, the project has a tool that helps us to do several things.
    For example you can use it to change the panel theme with this command:
    ```bash
-   wpc-tools theme_install
+      wpc-tools theme_install
    ```
 
 
@@ -110,3 +104,4 @@ I also made a [Patreon](https://www.patreon.com/xchwarze) account where I share 
 
 [![patreon](assets/patreon.png)](https://www.patreon.com/xchwarze)
 ![binance-qr](assets/binance-qr.png)
+
