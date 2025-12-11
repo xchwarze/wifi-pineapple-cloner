@@ -64,34 +64,28 @@ Therefore, the most refined method I have devised not only significantly reduces
 
 ## Install steps
 
-1. Install OpenWrt version 19.07.7 on your router.
-<br>
+1. Install **OpenWrt version 19.07.7** on your router.  
+   You can find official firmware images at [https://firmware-selector.openwrt.org/](https://firmware-selector.openwrt.org/).  
+   Note that some routers may not appear there — in those cases, you will need to manually locate the correct firmware link for your device.  
+   Remember, **not all routers are supported by this OpenWrt version**.
 
-2. Use SCP to upload the [firmware image](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) in your device.
-```bash
-scp gl-ar750s-universal-sysupgrade.bin root@192.168.1.1:/tmp 
-root@192.168.1.1's password: 
-gl-ar750s-universal-sysupgrade.bin                                                                        100%   13MB   2.2MB/s   00:05 
-```
-<br>
+2. Open the **OpenWrt 19.07.7 LuCI web interface** (default: `http://192.168.1.1`).  
+   Navigate to **System → Backup / Flash Firmware → Flash new firmware image**.  
 
-3. Once the image is uploaded, execute sysupgrade command to update firmware. Wait few minutes until the device install the new firmware. 
-```bash
-ssh root@192.168.1.1
-sysupgrade -n -F /tmp/gl-ar750s-universal-sysupgrade.bin
-```
-<br>
+3. Download the correct firmware for your router model from the [official build repository](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds).  
+   Upload that file (e.g. `gl-ar750s-universal-sysupgrade.bin`) in the LuCI panel, and check the option **“Do not keep settings”** to ensure a clean installation.  
+   **You must install it with the do not save configuration over reflash option checked.**
 
-4. Enter to pineapple panel and enjoy! `http://172.16.42.1:1471/`
+4. Click **Flash Image**, confirm, and wait patiently until the flashing process and automatic reboot are fully completed.
 
-In the [download](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) repo you can find some debugging tips if you have problems.
-<br>
+5. Enter to pineapple panel and enjoy! `http://172.16.42.1:1471/`
+   In the [download](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) repo you can find some debugging tips if you have problems.
 
-5. Once installed, the project has a tool that helps us to do several things.
-For example you can use it to change the panel theme with this command:
-```bash
-wpc-tools theme_install
-```
+6. Once installed, the project has a tool that helps us to do several things.
+   For example you can use it to change the panel theme with this command:
+   ```bash
+   wpc-tools theme_install
+   ```
 
 
 ## Recomended setup
@@ -114,3 +108,4 @@ I also made a [Patreon](https://www.patreon.com/xchwarze) account where I share 
 
 [![patreon](assets/patreon.png)](https://www.patreon.com/xchwarze)
 ![binance-qr](assets/binance-qr.png)
+
