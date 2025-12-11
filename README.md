@@ -36,17 +36,19 @@ If you are interested in developing tools of this type, you may find my new deve
 
 ## Supported devices
 
-There are 211 identified devices that can perfectly run the development. You can see the full [list here](devices.md). 
+This project supports over **200 confirmed devices** capable of running the firmware without issues.  
+You can check the complete [supported devices list](devices.md) for detailed compatibility information.  
 <br>
 
-If you want to test the tool on unsupported routers, you can find **private versions on Patreon**.
+If your router is not officially supported, **private test builds** are available on Patreon for experimental use.  
 <br>
 
-Also I made a second repo for [downloads](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) where you can find the firmwares already made for the most common devices of the Supported devices list.
+Additionally, the [build repository](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds) contains precompiled firmware images for the most common supported models.  
 <br>
 
-**If your device is not in the list or you just want something more modern you can try my other project [Frieren](https://github.com/xchwarze/frieren)**
+**If your device isn’t listed or you prefer a newer, actively developed alternative, check out my other project [Frieren](https://github.com/xchwarze/frieren).**
 <br>
+
 
 ## What differences are there with other methods using by firmwares that I can download from the internet?
 
@@ -108,4 +110,3 @@ I also made a [Patreon](https://www.patreon.com/xchwarze) account where I share 
 
 [![patreon](assets/patreon.png)](https://www.patreon.com/xchwarze)
 ![binance-qr](assets/binance-qr.png)
-
