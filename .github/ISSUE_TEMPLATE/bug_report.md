@@ -14,8 +14,8 @@ assignees: ''
 
 - Make sure to follow the installation steps and recommendations:
   - [Installation steps](https://github.com/xchwarze/wifi-pineapple-cloner-v4/#install-steps)
-  - [Recommendations](https://github.com/xchwarze/wifi-pineapple-cloner-builds#supported-devices)
-  - [Recomended Setup](https://github.com/xchwarze/wifi-pineapple-cloner-builds#recomended-setup)
+  - [Recommendations](https://gitlab.com/xchwarze/wifi-pineapple-cloner-builds#supported-devices)
+  - [Recomended Setup](https://github.com/xchwarze/wifi-pineapple-cloner?tab=readme-ov-file#recomended-setup)
 
 - Make sure to check whether there are similar issues in the repository
 
@@ -36,5 +36,4 @@ assignees: ''
 <!-- List down the steps you have tried to fix or identify the issue. -->
 
 ### Your device logs. Without this, no help can be given.
-<!-- Attach debug log from: Help > Feedback and Support > Download Debug File
- -->
+<!-- Attach debug log from: Help > Feedback and Support > Download Debug File -->
