@@ -17,7 +17,7 @@ if (!isset($argv[1])) {
     exit(1);
 }
 
-function processFile($filePath, $showEssentials, $showDependencies)
+function processFile($filePath)
 {
     $block = [];
     $packagesData = [];
@@ -42,57 +42,7 @@ function processFile($filePath, $showEssentials, $showDependencies)
         $packagesData[] = $block;       
     }
 
-    return cleanInstallData($packagesData, $showEssentials, $showDependencies);
-}
-
-function cleanInstallData($output, $showEssentials, $showDependencies)
-{
-    $packages = [];
-    $depends = [];
-
-    // generate packages and depends array
-    foreach ($output as $data) {
-        if ( 
-            !isset($data['Auto-Installed']) && 
-            isValidPackage($data['Package']) 
-        ) {
-            if (
-                !isset($data['Essential']) || 
-                (
-                    isset($data['Essential']) && $showEssentials
-                )
-            ) {
-                $packages[] = $data['Package'];
-
-                if (isset($data['Depends'])) {
-                    foreach (explode(',', $data['Depends']) as $dependency) {
-                        $dependency = trim($dependency);
-                        if (!in_array($dependency, $depends)) {
-                            $depends[] = $dependency;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // show all installed packages
-    if ($showDependencies) {
-        sort($packages);
-        return $packages;
-    }
-
-    // show only target packages
-    $targetPackages = [];
-    foreach ($packages as $package) {
-        if (!in_array($package, $depends)) {
-            $targetPackages[] = $package;
-        }
-    }
-
-    //var_dump($depends);
-    sort($targetPackages);
-    return $targetPackages;
+    return $packagesData;
 }
 
 function isValidPackage($name)
@@ -126,34 +76,102 @@ function isValidPackage($name)
     return !in_array($name, $packageBlacklist);
 }
 
+function getResume($packagesData)
+{
+    $packages = [];
+    $depends = [];
+
+    // generate packages and depends array
+    foreach ($packagesData as $data) {
+        if (!isValidPackage($data['Package'])) {
+            continue;
+        }
+
+        $packages[] = $data;
+        if (isset($data['Depends'])) {
+            foreach (explode(',', $data['Depends']) as $dependency) {
+                $dependency = trim($dependency);
+                if (!in_array($dependency, $depends)) {
+                    $depends[] = $dependency;
+                }
+            }
+        }
+    }
+
+    return [$packages, $depends];
+}
+
+function getTargetPackages($packages, $depends)
+{
+    $packagesData = array_filter($packages, function($data) {
+        return !isset($data['Auto-Installed']);
+    });
+
+    $packageNames = array_column($packagesData, 'Package');
+    $targetPackages = array_diff($packageNames, $depends);
+    sort($targetPackages);
+
+    return $targetPackages;
+}
+
+function getAutoInstalledPackages($packages)
+{
+    $autoInstalled = array_filter($packages, function($data) {
+        return isset($data['Auto-Installed']);
+    });
+    
+    $packageNames = array_column($autoInstalled, 'Package');
+    sort($packageNames);
+    
+    return $packageNames;
+}
+
+function getEssentialPackages($packages)
+{
+    $essentials = array_filter($packages, function($data) {
+        return isset($data['Essential']);
+    });
+    
+    $packageNames = array_column($essentials, 'Package');
+    sort($packageNames);
+    
+    return $packageNames;
+}
+
+function console($text, $lineBreaks = 1)
+{
+    echo $text;
+    echo str_repeat("\n", $lineBreaks);
+}
 
 
-echo "\nopkg status parser - by DSR!";
-echo "\n---------------------------------------\n\n";
+console("opkg status parser - by DSR!");
+console("---------------------------------------", 2);
 $printSep   = (isset($argv[2]) && filter_var($argv[2], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) ? "\n" : ' ';
 $statusFile = $argv[1];
 
 if (!file_exists($statusFile)) {
-    echo "[!!!] File not found: \"($statusFile)\"\n";
+    console("[!!!] File not found: $statusFile");
     return 0;
 }
 
 
-$statusData = processFile($statusFile, false, false);
+$packagesData = processFile($statusFile);
+list($packages, $depends) = getResume($packagesData);
 
-echo "======== Packages (" . count($statusData) . ") ========\n";
-echo implode($printSep, $statusData);
-echo "\n\n\n";
+$targetPackages = getTargetPackages($packages, $depends);
+$essentials = getEssentialPackages($packages);
+$autoInstalled = getAutoInstalledPackages($packages);
 
+// print.....
+console("======== Packages (" . count($targetPackages) . ") ========");
+echo implode($printSep, $targetPackages);
+console("", 3);
 
-$statusDataEssentials = processFile($statusFile, true, false);
-$essentialPackages = [];
-foreach ($statusDataEssentials as $key) {
-    if (!in_array($key, $statusData)) {
-        $essentialPackages[] = $key;
-    }
-}
+console("======== Essential Packages (" . count($essentials) . ") ========");
+echo implode($printSep, $essentials);
+console("", 3);
 
-echo "======== Essentials Packages (" . count($essentialPackages) . ") ========\n";
-echo implode($printSep, $essentialPackages);
-echo "\n";
+console("======== Auto-Installed Packages (" . count($autoInstalled) . ") ========");
+echo implode($printSep, $autoInstalled);
+console("", 3);
