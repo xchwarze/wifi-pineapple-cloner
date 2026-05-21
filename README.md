@@ -1,3 +1,15 @@
+<p align="center">
+  <a href="https://discord.gg/4kHYtWAXx9">
+    <img src="assets/forge-logo.png" alt="Signal Forge" width="180">
+  </a>
+</p>
+
+> 📢 **Join [Signal Forge](https://discord.gg/4kHYtWAXx9)**
+>
+> Official community for WiFi Pineapple Cloner, Frieren, OpenWrt, WiFi security, SIGINT tools, hardware builds, modules, labs, and responsible research.
+>
+> Get support, share builds, follow updates, report bugs, suggest features, and contribute modules or tutorials.
+
 ![Project Logo](assets/logo.png)
 
 # Wifi Pineapple Cloner v4
